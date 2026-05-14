@@ -1,7 +1,7 @@
 # MinecraftServerBot или же просто бот моего Minecraft сервера
 Программа поможет попасть на мой проект, изучить его правила, вы сможете подать свою заявку которая будет рассмотрена в скором времени
 <p align="center">
-<img src="https://github.com/Egor4ikEgor4ikEgor4ik/Minecraft-Server- Bot/blob/main/img/minecraft_kartinka.jpg" style="width:69%"/>
+<img src="https://github.com/Egor4ikEgor4ikEgor4ik/Minecraft-Server-Bot/blob/main/img/minecraft_kartinka.png" style="width:69%"/>
 </p>
 
 ## Как установить
