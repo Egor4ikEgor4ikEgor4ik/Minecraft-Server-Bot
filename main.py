@@ -32,7 +32,7 @@ async def main():
     dp.include_router(admin_router)
     await dp.start_polling(bot)
 
-   Добавлена проверка на существование базы данных
+   
 
 
 if __name__ == "__main__":

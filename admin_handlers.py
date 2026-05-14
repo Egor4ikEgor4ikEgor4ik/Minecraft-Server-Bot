@@ -3,21 +3,36 @@ from aiogram import Router,F
 from config import database_file_name
 from database import reading_file
 from admin_buttons import admin_accept_deny_keyboard
+from admin_buttons import admin_main_menu_keyboard
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
+from admin_buttons import admin_otmena_keyboard
+from aiogram.types import CallbackQuery
+
 
 admin_router = Router()
 
 class States(StatesGroup):
     waiting_id = State()
 
+
+@admin_router.callback_query(F.data == "otmena")
+async def handle_btn1(callback: CallbackQuery,state: FSMContext):
+    await callback.answer("Эль примо")
+    await state.clear()
+    await callback.message.delete()
+
+
+
+
+
 @admin_router.message(F.text=='Правила админа')
-async def button_two(message):
+async def pravila_admina(message):
     await message.delete() # удаляет сообщение пользователя в котором содержится просто текст кнопки
     await message.answer("1 правило никогда не рассказывать про первое правило 2 правило никогда не рассказывать про второе правило")
 
 @admin_router.message(F.text=='Заявки на рассмотрении',)
-async def button_two(message,state: FSMContext):
+async def zayavki_na_rassmotrnii(message,state: FSMContext):
     message_text = "Пользователи с заявками на рассмотрении:  \n"
     for i in reading_file(database_file_name):
         if i["status"] == "Under consideration":
@@ -28,7 +43,7 @@ async def button_two(message,state: FSMContext):
     
 
     await message.delete() # удаляет сообщение пользователя в котором содержится просто текст кнопки
-    await message.answer(message_text,parse_mode = 'markdown')
+    await message.answer(message_text,parse_mode = 'markdown',reply_markup = admin_otmena_keyboard)
     await state.set_state(States.waiting_id)
     message.from_user.id
 
@@ -55,6 +70,8 @@ async def button_two(message,state: FSMContext):
         if temp_data['user_id'] == str(i['tg_id']):
             i['status'] = 'Accept'
             writing_file(file_name=database_file_name,file_contents=all_zayavki)
+            await message.answer("Заявка принята!")
+            await zayavki_na_rassmotrnii(message,state)
             break
 
 # @admin_router.message(F.text=='')

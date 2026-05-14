@@ -6,8 +6,8 @@ from admin_buttons import admin_main_menu_keyboard
 
 load_dotenv() 
 
-admin_id = os.getenv("ADMIN_ID")
-
+admin_id = int(os.getenv("ADMIN_ID"))
+print(admin_id)
 
 main_router = Router()
 
